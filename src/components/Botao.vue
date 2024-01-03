@@ -1,0 +1,27 @@
+<template>
+    <button class="button" @click="clicado" :disabled="desabilitado">
+        <span class="icon">
+            <i class="fas fa-play"></i>
+        </span>
+        <span>{{ texto }}</span>
+    </button>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+    name: "BotaoC",
+    emits:['clicado'],
+    props: {
+        desabilitado:{ type: Boolean},
+        incone:{ type: String, required: true },
+        texto:{ type: String, required: true}
+    },
+    methods: {
+        clicado( ): void{
+            this.$emit('clicado')
+        }
+    }
+})
+</script>
