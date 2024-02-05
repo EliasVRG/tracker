@@ -19,6 +19,17 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "FormularioC",
+  props:{
+    id:{
+      type: String
+    }
+  },
+  mounted (){
+    if(this.id){
+      const projeto = this.store.state.projetos.find(proj => proj.id == this.id)
+      this.nomeDoProjeto = projeto?.nome || ''
+    }
+  },
   data() {
     return {
       nomeDoProjeto: "",
@@ -26,7 +37,15 @@ export default defineComponent({
   },
   methods: {
     salvar(){
-      this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto)
+      if(this.id){
+        this.store.commit('ADICIONA_PROJETO', {
+          id: this.id,
+          nome: this.nomeDoProjeto
+        })
+      } else{
+        this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto)
+      }
+
       this.nomeDoProjeto = "";
       this.$router.push('/projetos')
     },
